@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { currentUser, logout } from './auth'
 
 const entered = ref(false)
 </script>
@@ -23,7 +24,7 @@ const entered = ref(false)
       <div class="nav-links">
         <RouterLink to="/">首页</RouterLink><RouterLink to="/film">影视</RouterLink><RouterLink to="/dance">舞蹈</RouterLink><RouterLink to="/image">图片</RouterLink><RouterLink to="/song">歌曲</RouterLink><RouterLink to="/fanwork">二创</RouterLink>
       </div>
-      <button class="profile-placeholder" type="button" title="个人中心将在后续阶段开放">我的</button>
+      <div class="account-links"><RouterLink v-if="currentUser" to="/publish">发布</RouterLink><RouterLink v-if="!currentUser" to="/login">登录</RouterLink><button v-else class="profile-placeholder" type="button" @click="logout">退出</button></div>
     </nav>
     <RouterView />
   </main>
