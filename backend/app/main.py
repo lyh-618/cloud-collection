@@ -8,20 +8,19 @@ app = FastAPI(
 )
 
 
-class Pet(BaseModel):
+class Recommendation(BaseModel):
     id: int
-    name: str
-    attribute: str
-    rarity: str
+    category: str
+    title: str
+    subtitle: str
     description: str
-    emoji: str
+    accent: str
 
 
-PETS = [
-    Pet(id=1, name="火花", attribute="火系", rarity="稀有", description="喜欢温暖阳光的小火焰，进化后拥有更强的爆发力。", emoji="🔥"),
-    Pet(id=2, name="喵喵", attribute="草系", rarity="普通", description="森林里的绿色精灵，性格温顺但十分机灵。", emoji="🌿"),
-    Pet(id=3, name="水蓝蓝", attribute="水系", rarity="稀有", description="来自湖泊的水之精灵，擅长使用水流进行攻击。", emoji="💧"),
-    Pet(id=4, name="小翼龙", attribute="翼系", rarity="史诗", description="拥有远古血脉的飞行宠物，喜欢在云层中穿梭。", emoji="🪽"),
+RECOMMENDATIONS = [
+    Recommendation(id=1, category="影视入坑", title="从一部剧认识她", subtitle="角色塑造 · 氛围感", description="适合第一次了解鞠婧祎的你：从角色、造型和情绪表达，慢慢发现她的独特气质。", accent="01"),
+    Recommendation(id=2, category="舞台安利", title="看见舞台上的光", subtitle="舞台表现 · 音乐现场", description="把镜头交给舞台，感受轻盈的动作、稳定的状态和属于她的闪光时刻。", accent="02"),
+    Recommendation(id=3, category="作品收藏", title="建立你的作品清单", subtitle="影视作品 · 个人偏好", description="收藏喜欢的角色与片段，记录每一次心动，也欢迎写下你自己的推荐理由。", accent="03"),
 ]
 
 
@@ -31,8 +30,8 @@ def health_check() -> dict[str, str]:
     return {"status": "ok", "service": "cloud-collection-api"}
 
 
-@app.get("/api/pets", response_model=list[Pet])
-def list_pets() -> list[Pet]:
-    """Return the first batch of catalogue data until a database is introduced."""
-    return PETS
+@app.get("/api/recommendations", response_model=list[Recommendation])
+def list_recommendations() -> list[Recommendation]:
+    """Return editorial recommendation cards for the fan site homepage."""
+    return RECOMMENDATIONS
 

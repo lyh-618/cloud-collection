@@ -2,44 +2,48 @@
 import { onMounted, ref } from 'vue'
 
 type HealthResponse = { status: string; service: string }
-type Pet = {
+type Recommendation = {
   id: number
-  name: string
-  attribute: string
-  rarity: string
+  category: string
+  title: string
+  subtitle: string
   description: string
-  emoji: string
+  accent: string
 }
 
 const health = ref<HealthResponse | null>(null)
 const error = ref('')
-const pets = ref<Pet[]>([])
-const loadingPets = ref(true)
+const recommendations = ref<Recommendation[]>([])
+const loadingRecommendations = ref(true)
 
 onMounted(async () => {
   try {
-    const [healthResponse, petsResponse] = await Promise.all([
+    const [healthResponse, recommendationsResponse] = await Promise.all([
       fetch('/api/health'),
-      fetch('/api/pets'),
+      fetch('/api/recommendations'),
     ])
-    if (!healthResponse.ok || !petsResponse.ok) throw new Error('API 请求失败')
+    if (!healthResponse.ok || !recommendationsResponse.ok) throw new Error('API 请求失败')
     health.value = await healthResponse.json() as HealthResponse
-    pets.value = await petsResponse.json() as Pet[]
+    recommendations.value = await recommendationsResponse.json() as Recommendation[]
   } catch (requestError) {
     error.value = requestError instanceof Error ? requestError.message : '请求失败'
   } finally {
-    loadingPets.value = false
+    loadingRecommendations.value = false
   }
 })
 </script>
 
 <template>
   <main class="page-shell">
-    <section class="hero-card">
+    <nav class="top-nav">
+      <div class="brand-mark"><span>JY</span> 安利收藏馆</div>
+      <div class="nav-links"><a href="#about">关于她</a><a href="#guide">入坑指南</a><a href="#notes">收藏手记</a></div>
+    </nav>
+    <section class="hero-card" id="about">
       <div class="hero-copy">
-        <p class="eyebrow">CLOUD COLLECTION · POKEDEX</p>
-        <h1>洛克王国<br /><span>宠物图鉴</span></h1>
-        <p class="intro">收集每一次相遇，记录属于你的宠物故事。</p>
+        <p class="eyebrow">JINGYI FAN COLLECTION · 01</p>
+        <h1>把喜欢的光<br /><span>好好收藏</span></h1>
+        <p class="intro">这是一个关于鞠婧祎的安利空间，收集作品、舞台和那些让人心动的瞬间。</p>
         <div class="status" :class="{ online: health, offline: error }">
           <span class="dot" />
           <span v-if="health">后端已连接</span>
@@ -50,27 +54,32 @@ onMounted(async () => {
       <div class="hero-orb">✦</div>
     </section>
 
-    <section class="catalogue-section">
+    <section class="catalogue-section" id="guide">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">MY CATALOGUE</p>
-          <h2>宠物收藏</h2>
+          <p class="eyebrow">START HERE</p>
+          <h2>三条入坑路线</h2>
         </div>
-        <span class="count-badge">{{ pets.length }} 只宠物</span>
+        <span class="count-badge">{{ recommendations.length }} 个推荐</span>
       </div>
-      <p v-if="loadingPets" class="empty-state">正在加载图鉴…</p>
-      <p v-else-if="error" class="empty-state">暂时无法加载图鉴，请确认后端已启动。</p>
-      <div v-else class="pet-grid">
-        <article v-for="pet in pets" :key="pet.id" class="pet-card">
-          <div class="pet-emoji">{{ pet.emoji }}</div>
-          <div class="pet-card-body">
-            <div class="pet-meta"><span>{{ pet.attribute }}</span><span>{{ pet.rarity }}</span></div>
-            <h3>{{ pet.name }}</h3>
-            <p>{{ pet.description }}</p>
-            <button type="button" class="collect-button">加入收藏 <span>＋</span></button>
+      <p v-if="loadingRecommendations" class="empty-state">正在加载安利内容…</p>
+      <p v-else-if="error" class="empty-state">暂时无法加载内容，请确认后端已启动。</p>
+      <div v-else class="recommendation-grid">
+        <article v-for="item in recommendations" :key="item.id" class="recommendation-card">
+          <div class="card-number">{{ item.accent }}</div>
+          <div class="card-content">
+            <p class="card-category">{{ item.category }}</p>
+            <h3>{{ item.title }}</h3>
+            <p class="card-subtitle">{{ item.subtitle }}</p>
+            <p class="card-description">{{ item.description }}</p>
+            <button type="button" class="collect-button">查看推荐 <span>↗</span></button>
           </div>
         </article>
       </div>
+    </section>
+    <section class="notes-section" id="notes">
+      <p class="eyebrow">A SMALL NOTE</p>
+      <p>喜欢不需要标准答案。这里先放下第一张小小的推荐卡，之后一起把它变成更完整的作品档案和收藏手记。</p>
     </section>
   </main>
 </template>

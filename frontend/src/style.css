@@ -1,7 +1,12 @@
 :root { font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; color: #172033; background: #f5f6fa; }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
-.page-shell { width: min(1120px, 100%); min-height: 100vh; margin: auto; padding: 40px 24px 72px; }
+.page-shell { width: min(1120px, 100%); min-height: 100vh; margin: auto; padding: 28px 24px 72px; }
+.top-nav { display: flex; align-items: center; justify-content: space-between; padding: 4px 4px 30px; }
+.brand-mark { color: #3d4265; font-size: 15px; font-weight: 700; letter-spacing: .04em; }
+.brand-mark span { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-right: 8px; border-radius: 10px; background: #3d4265; color: #ffe2a3; font-size: 11px; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { color: #7c8298; font-size: 13px; text-decoration: none; }
 .hero-card { position: relative; overflow: hidden; display: flex; justify-content: space-between; min-height: 330px; padding: 56px 64px; border-radius: 32px; background: linear-gradient(120deg, #252b4a, #5366ae); color: white; box-shadow: 0 20px 60px #263b6330; }
 .hero-copy { position: relative; z-index: 1; }
 .eyebrow { margin: 0 0 16px; color: #8b9bdb; font-size: 12px; font-weight: 700; letter-spacing: .18em; }
@@ -18,16 +23,19 @@ h1 span { color: #ffd477; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 24px; }
 h2 { margin: 0; font-size: 32px; }
 .count-badge { padding: 8px 14px; border: 1px solid #e0e3ec; border-radius: 999px; color: #69738c; font-size: 13px; }
-.pet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.pet-card { overflow: hidden; border: 1px solid #e6e8ef; border-radius: 20px; background: white; box-shadow: 0 10px 26px #263b6310; }
-.pet-emoji { display: grid; place-items: center; height: 150px; background: linear-gradient(145deg, #f8eecf, #e4eaff); font-size: 72px; }
-.pet-card-body { padding: 18px; }
-.pet-meta { display: flex; justify-content: space-between; color: #78839b; font-size: 12px; }
-.pet-meta span:last-child { color: #b07a2f; }
-h3 { margin: 10px 0 6px; font-size: 24px; }
-.pet-card p { min-height: 48px; margin: 0 0 18px; color: #6b7488; font-size: 13px; line-height: 1.6; }
+.recommendation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.recommendation-card { position: relative; overflow: hidden; min-height: 330px; border: 1px solid #e6e8ef; border-radius: 20px; background: white; box-shadow: 0 10px 26px #263b6310; }
+.recommendation-card::after { position: absolute; right: -34px; top: -42px; width: 130px; height: 130px; border-radius: 50%; background: #f6e5c1; content: ''; opacity: .55; }
+.card-number { position: absolute; right: 18px; top: 18px; color: #b9a57e; font-size: 12px; font-weight: 700; }
+.card-content { position: relative; z-index: 1; padding: 32px 24px 24px; }
+.card-category { margin: 0 0 32px; color: #9b7b43; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+h3 { margin: 0 0 8px; font-size: 24px; }
+.card-subtitle { margin: 0 0 22px; color: #4f5f9e; font-size: 13px; }
+.card-description { min-height: 68px; margin: 0 0 22px; color: #6b7488; font-size: 13px; line-height: 1.7; }
 .collect-button { width: 100%; padding: 10px 12px; border: 0; border-radius: 10px; background: #eef0fb; color: #5366ae; cursor: pointer; font: inherit; font-size: 13px; }
 .collect-button span { margin-left: 6px; font-size: 16px; }
 .empty-state { color: #6b7488; }
-@media (max-width: 800px) { .pet-grid { grid-template-columns: repeat(2, 1fr); } .hero-orb { margin-right: 0; font-size: 100px; } }
-@media (max-width: 560px) { .hero-card { min-height: 0; padding: 36px 24px; } .hero-orb { position: absolute; right: 0; top: 20px; opacity: .45; } .pet-grid { grid-template-columns: 1fr; } .section-heading { align-items: start; gap: 16px; flex-direction: column; } }
+.notes-section { margin-top: 84px; padding: 30px 0 0; border-top: 1px solid #e3e5ed; color: #737b91; font-size: 14px; line-height: 1.8; }
+.notes-section p:last-child { max-width: 650px; margin-top: 0; }
+@media (max-width: 800px) { .recommendation-grid { grid-template-columns: 1fr; } .hero-orb { margin-right: 0; font-size: 100px; } }
+@media (max-width: 560px) { .top-nav { align-items: start; gap: 16px; flex-direction: column; } .nav-links { gap: 14px; } .hero-card { min-height: 0; padding: 36px 24px; } .hero-orb { position: absolute; right: 0; top: 20px; opacity: .45; } .section-heading { align-items: start; gap: 16px; flex-direction: column; } }

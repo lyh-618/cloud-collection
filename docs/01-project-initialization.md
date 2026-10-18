@@ -16,8 +16,8 @@
 
 ## 下一步
 
-1. 将健康检查替换为宠物列表 API。
+1. 将示例安利卡片替换为可维护的作品资料 API。
 2. 引入 SQLAlchemy 数据模型和 Alembic 迁移。
-3. 使用 MySQL 保存宠物与收藏关系，Redis 缓存热门列表。
+3. 使用 MySQL 保存作品、标签与用户收藏，Redis 缓存热门内容。
 4. 增加 Docker Compose，让应用、MySQL 和 Redis 可重复启动。
 
