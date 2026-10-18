@@ -49,6 +49,13 @@ h3 { margin: 0 0 8px; font-size: 24px; }
 .collect-button span { margin-left: 6px; font-size: 16px; }
 .empty-state { color: #6b7488; }
 .notes-section { margin-top: 84px; padding: 30px 0 0; border-top: 1px solid #e3e5ed; color: #737b91; font-size: 14px; line-height: 1.8; }
+.popular-section { margin-top: 76px; }
+.popular-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.popular-card { display: grid; grid-template-columns: 112px 1fr; gap: 16px; padding: 14px; border: 1px solid #e6e8ef; border-radius: 18px; background: #fff; }
+.popular-card img { width: 112px; height: 140px; border-radius: 12px; object-fit: cover; }
+.popular-card h3 { margin: 10px 0 6px; font-size: 18px; }
+.popular-card p { display: -webkit-box; overflow: hidden; min-height: 42px; margin: 0 0 10px; color: #6b7488; font-size: 12px; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.popular-card small { color: #9aa1b3; font-size: 11px; }
 .notes-section p:last-child { max-width: 650px; margin-top: 0; }
 .feature-strip { display: flex; align-items: center; justify-content: space-between; gap: 36px; margin-top: 80px; padding: 32px; border-radius: 24px; background: #24283f; color: white; }
 .feature-copy { max-width: 500px; }
@@ -83,7 +90,7 @@ h3 { margin: 0 0 8px; font-size: 24px; }
 .detail-card h1 { margin: 18px 0; color: #252b4a; font-size: clamp(36px, 6vw, 64px); }
 .detail-description { margin: 26px 0; color: #6b7488; line-height: 1.8; }
 .detail-meta { color: #9aa1b3; font-size: 13px; }
-@media (max-width: 800px) { .content-grid { grid-template-columns: repeat(2, 1fr); } .detail-card { grid-template-columns: 1fr; } }
-@media (max-width: 560px) { .content-grid { grid-template-columns: 1fr; } .content-toolbar { flex-wrap: wrap; } .content-toolbar input { width: 100%; } }
+@media (max-width: 800px) { .content-grid, .popular-grid { grid-template-columns: repeat(2, 1fr); } .detail-card { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .content-grid, .popular-grid { grid-template-columns: 1fr; } .content-toolbar { flex-wrap: wrap; } .content-toolbar input { width: 100%; } }
 @media (max-width: 800px) { .recommendation-grid { grid-template-columns: 1fr; } .hero-portrait { width: 35%; } .nav-links { gap: 12px; } }
 @media (max-width: 560px) { .cover-page { padding: 32px 24px 72px; } .cover-credit { right: 24px; bottom: 24px; } .top-nav { align-items: start; gap: 16px; flex-direction: column; } .nav-links { flex-wrap: wrap; gap: 10px 14px; } .hero-card { min-height: 0; padding: 36px 24px; } .hero-portrait { position: absolute; right: -20px; bottom: -24px; width: 48%; opacity: .45; } .section-heading { align-items: start; gap: 16px; flex-direction: column; } .feature-strip { align-items: start; flex-direction: column; } }
