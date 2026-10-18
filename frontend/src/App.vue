@@ -15,6 +15,7 @@ const health = ref<HealthResponse | null>(null)
 const error = ref('')
 const recommendations = ref<Recommendation[]>([])
 const loadingRecommendations = ref(true)
+const entered = ref(false)
 
 onMounted(async () => {
   try {
@@ -34,12 +35,23 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="page-shell">
+  <main v-if="!entered" class="cover-page">
+    <div class="cover-backdrop" />
+    <div class="cover-overlay" />
+    <section class="cover-content">
+      <p class="eyebrow">JINGYI FAN COLLECTION</p>
+      <h1>鞠婧祎<br /><span>安利收藏馆</span></h1>
+      <p>收藏舞台、作品和每一个值得回看的瞬间。</p>
+      <button type="button" class="enter-button" @click="entered = true">进入收藏馆 <span>→</span></button>
+    </section>
+    <p class="cover-credit">A SMALL FAN-MADE ARCHIVE · 2026</p>
+  </main>
+  <main v-else class="page-shell">
     <nav class="top-nav">
       <div class="brand-mark"><span>JY</span> 安利收藏馆</div>
-      <div class="nav-links"><a href="#about">关于她</a><a href="#guide">入坑指南</a><a href="#notes">收藏手记</a></div>
+      <div class="nav-links"><a href="#home">首页</a><a href="#film">影视</a><a href="#dance">舞蹈</a><a href="#image">图片</a><a href="#song">歌曲</a><a href="#fanwork">二创</a></div>
     </nav>
-    <section class="hero-card" id="about">
+    <section class="hero-card" id="home">
       <div class="hero-copy">
         <p class="eyebrow">JINGYI FAN COLLECTION · 01</p>
         <h1>把喜欢的光<br /><span>好好收藏</span></h1>
@@ -51,7 +63,7 @@ onMounted(async () => {
           <span v-else>正在检查后端连接…</span>
         </div>
       </div>
-      <div class="hero-orb">✦</div>
+      <img class="hero-portrait" src="/assets/portrait-film.jpg" alt="蓝色胶片风格人物照片" />
     </section>
 
     <section class="catalogue-section" id="guide">
@@ -77,6 +89,11 @@ onMounted(async () => {
         </article>
       </div>
     </section>
+    <section class="feature-strip" id="film">
+      <div class="feature-copy"><p class="eyebrow">FEATURED STORY</p><h2>从一帧画面开始认识她</h2><p>把喜欢的作品、舞台和图片放在同一个有温度的空间里，慢慢搭建属于你的安利档案。</p></div>
+      <img src="/assets/illustration.png" alt="彩色插画风格人物头像" />
+    </section>
+    <div class="anchor-note" id="dance">舞蹈 · <span id="image">图片</span> · <span id="song">歌曲</span> · <span id="fanwork">二创</span> 页面将在下一阶段逐步展开。</div>
     <section class="notes-section" id="notes">
       <p class="eyebrow">A SMALL NOTE</p>
       <p>喜欢不需要标准答案。这里先放下第一张小小的推荐卡，之后一起把它变成更完整的作品档案和收藏手记。</p>
