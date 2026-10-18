@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { apiFetch, token } from '../auth'
 
 type Content = { id: number; type: string; title: string; description: string; cover_url: string; external_url: string | null; author: string; tags: string[]; like_count: number; favorite_count: number; view_count: number }
 const route = useRoute()
@@ -31,6 +32,15 @@ async function loadContents() {
   } finally { loading.value = false }
 }
 
+async function toggle(item: Content, action: 'like' | 'favorite') {
+  if (!token.value) { window.alert('请先登录后再互动'); return }
+  const response = await apiFetch(`/api/contents/${item.id}/${action}`, { method: 'POST' })
+  if (!response.ok) return
+  const data = await response.json()
+  if (action === 'like') { item.like_count = data.like_count; (item as Content & { liked?: boolean }).liked = data.liked }
+  else { item.favorite_count = data.favorite_count; (item as Content & { favorited?: boolean }).favorited = data.favorited }
+}
+
 onMounted(loadContents)
 </script>
 
@@ -43,6 +53,6 @@ onMounted(loadContents)
     <p v-if="loading" class="empty-state">正在加载内容…</p>
     <p v-else-if="error" class="empty-state">{{ error }}</p>
     <p v-else-if="!contents.length" class="empty-state">还没有匹配的内容。</p>
-    <div v-else class="content-grid"><article v-for="item in contents" :key="item.id" class="content-card"><img :src="item.cover_url" :alt="item.title" /><div class="content-card-body"><div class="tag-row"><span v-for="tag in item.tags" :key="tag">#{{ tag }}</span></div><h3>{{ item.title }}</h3><p>{{ item.description }}</p><small>{{ item.author }} · {{ item.like_count }} 赞 · {{ item.view_count }} 次浏览</small><RouterLink class="detail-link" :to="`/content/${item.id}`">查看详情 →</RouterLink></div></article></div>
+    <div v-else class="content-grid"><article v-for="item in contents" :key="item.id" class="content-card"><img :src="item.cover_url" :alt="item.title" /><div class="content-card-body"><div class="tag-row"><span v-for="tag in item.tags" :key="tag">#{{ tag }}</span></div><h3>{{ item.title }}</h3><p>{{ item.description }}</p><small>{{ item.author }} · {{ item.like_count }} 赞 · {{ item.view_count }} 次浏览</small><div class="card-actions"><button type="button" @click="toggle(item, 'like')">♥ {{ item.like_count }}</button><button type="button" @click="toggle(item, 'favorite')">☆ {{ item.favorite_count }}</button><RouterLink class="detail-link" :to="`/content/${item.id}`">详情 →</RouterLink></div></div></article></div>
   </section>
 </template>
