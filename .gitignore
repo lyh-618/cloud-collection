@@ -1,0 +1,30 @@
+# Node
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+backend/.pytest_cache/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local services
+mysql-data/
+redis-data/
+
+# ChatGPT project reference files
+sources/
+AGENTS.md
+
